@@ -69,7 +69,7 @@ const normalizedData = {
 
 
 // 测试反范式化
-test('test normalizedData to originalData', () => {
+test('test normalizedData', () => {
   const user = new schema.Entity('users', {}, {
     idAttribute: 'uid'
   })
@@ -86,8 +86,13 @@ test('test normalizedData to originalData', () => {
       result: [comment]
     }
   })
-  // const data = normalize(originalData, article);
-  const { result, entities } = normalizedData;
+  // 范式化
+  const data = normalize(originalData, article);
+  expect(data).toEqual(normalizedData);
+
+  // 反范式化
+  // const { result, entities } = normalizedData;
+  const { result, entities } = data;
   const denormalizedData = denormalize(result, article, entities)
 
   expect(denormalizedData).toEqual(originalData);
