@@ -91,8 +91,8 @@ test('test normalizedData', () => {
   expect(data).toEqual(normalizedData);
 
   // 反范式化
-  // const { result, entities } = normalizedData;
-  const { result, entities } = data;
+  const { result, entities } = normalizedData;
+  // const { result, entities } = data;
   const denormalizedData = denormalize(result, article, entities)
 
   expect(denormalizedData).toEqual(originalData);
