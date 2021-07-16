@@ -14,7 +14,7 @@ export const denormalize = (result: string, entity: EntitySchema, entities: Enti
   console.log('------result', result);
   console.log('------entity', entity);
   console.log('-----entities', entities);
-  
+
 
   return getUnFlatten(entities)(entity, result)
 }
@@ -56,10 +56,10 @@ const schemaDeNormalize = (entity: EntitySchema, id: string, unFlatten: any, get
   // 拿到主键id对应的对象
   const obj = getEntity(entity, id);
   const schemaKey = entity.getName();
-  console.log('----obj-data',id);
-  
-  console.log('-----obj',obj);
-  
+  console.log('----obj-data', id);
+
+  console.log('-----obj', obj);
+
   // 当前data的数据
   const processedEntity = { ...obj };
   // 当前的shcema
@@ -93,25 +93,19 @@ const schemaDeNormalize = (entity: EntitySchema, id: string, unFlatten: any, get
 
 const noSchemaDeNormalize = (entity: any, data: any, unFlatten: any) => {
   const object = { ...data };
-  console.log('----object1-data',data);
-  
-  console.log('------object1',object);
-  
+  console.log('----object1-data', data);
+
+  console.log('------object1', object);
+
   const arr: any[] = [];
   const schemaIsArray = entity instanceof Array;
 
   Object.keys(entity).forEach(key => {
     let objectValue = unFlatten(entity[key], object[key]);
-    if (schemaIsArray) {
-      if (object[key]) {
-        object[key] = objectValue;
-      }
-      arr.push(objectValue)
-    } else {
-      if (object[key]) {
-        object[key] = objectValue;
-      }
+    if (object[key]) {
+      object[key] = objectValue;
     }
+    schemaIsArray && arr.push(objectValue);
   })
 
   return schemaIsArray ? arr : object

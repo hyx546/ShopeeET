@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>48/48</span>
+                <span class='fraction'>45/45</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.22% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>13/18</span>
+                <span class='fraction'>12/16</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>46/46</span>
+                <span class='fraction'>43/43</span>
             </div>
         
             
@@ -176,7 +176,11 @@
 <a name='L117'></a><a href='#L117'>117</a>
 <a name='L118'></a><a href='#L118'>118</a>
 <a name='L119'></a><a href='#L119'>119</a>
-<a name='L120'></a><a href='#L120'>120</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L120'></a><a href='#L120'>120</a>
+<a name='L121'></a><a href='#L121'>121</a>
+<a name='L122'></a><a href='#L122'>122</a>
+<a name='L123'></a><a href='#L123'>123</a>
+<a name='L124'></a><a href='#L124'>124</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -280,16 +284,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -311,7 +319,7 @@ export const denormalize = (result: string, entity: EntitySchema, entities: Enti
   console.log('------result', result);
   console.log('------entity', entity);
   console.log('-----entities', entities);
-  
+&nbsp;
 &nbsp;
   return getUnFlatten(entities)(entity, result)
 }
@@ -353,10 +361,10 @@ const schemaDeNormalize = (entity: EntitySchema, id: string, unFlatten: any, get
   // 拿到主键id对应的对象
   const obj = getEntity(entity, id);
   const schemaKey = entity.getName();
-  console.log('----obj-data',id);
-  
-  console.log('-----obj',obj);
-  
+  console.log('----obj-data', id);
+&nbsp;
+  console.log('-----obj', obj);
+&nbsp;
   // 当前data的数据
   const processedEntity = { ...obj };
   // 当前的shcema
@@ -390,25 +398,29 @@ const schemaDeNormalize = (entity: EntitySchema, id: string, unFlatten: any, get
 &nbsp;
 const noSchemaDeNormalize = (entity: any, data: any, unFlatten: any) =&gt; {
   const object = { ...data };
-  console.log('----object1-data',data);
-  
-  console.log('------object1',object);
-  
+  console.log('----object1-data', data);
+&nbsp;
+  console.log('------object1', object);
+&nbsp;
   const arr: any[] = [];
   const schemaIsArray = entity instanceof Array;
 &nbsp;
   Object.keys(entity).forEach(key =&gt; {
     let objectValue = unFlatten(entity[key], object[key]);
-    if (schemaIsArray) {
-      <span class="missing-if-branch" title="else path not taken" >E</span>if (object[key]) {
-        object[key] = objectValue;
-      }
-      arr.push(objectValue)
-    } else {
-      <span class="missing-if-branch" title="else path not taken" >E</span>if (object[key]) {
-        object[key] = objectValue;
-      }
+    // if (schemaIsArray) {
+    //   if (object[key]) {
+    //     object[key] = objectValue;
+    //   }
+    //   arr.push(objectValue)
+    // } else {
+    //   if (object[key]) {
+    //     object[key] = objectValue;
+    //   }
+    // }
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (object[key]) {
+      object[key] = objectValue;
     }
+    schemaIsArray &amp;&amp; arr.push(objectValue);
   })
 &nbsp;
   return schemaIsArray ? arr : object
@@ -421,7 +433,7 @@ const noSchemaDeNormalize = (entity: any, data: any, unFlatten: any) =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 16 2021 18:12:17 GMT+0800 (中国标准时间)
+                at Fri Jul 16 2021 18:52:08 GMT+0800 (中国标准时间)
             </div>
         </div>
         <script src="prettify.js"></script>
