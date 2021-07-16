@@ -1,8 +1,6 @@
 import EntitySchema from './EntitySchema';
 import { DataType,EntitiesType } from './commonInterface';
 
-
-
 /**
  * 1.首先考虑最外层实体嵌套问题
  * 递归最外层实体，递归到最里层，在往外层延伸
