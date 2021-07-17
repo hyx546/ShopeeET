@@ -10,12 +10,6 @@ import { schema } from "./Normalize";
  * @param entities 范式化数据
  */
 export const denormalize = (result: string, entity: EntitySchema, entities: EntitiesType) => {
-
-  console.log('------result', result);
-  console.log('------entity', entity);
-  console.log('-----entities', entities);
-
-
   return getUnFlatten(entities)(entity, result)
 }
 
@@ -48,17 +42,14 @@ const getEntities = (entities: EntitiesType) => (entity: EntitySchema, entityOtI
  * @param data 
  * @param unFlatten 
  * @param getEntity 
- * @param cache  
- * @returns 
+ * @param cache 输出的反范式化的对象
+ * @returns 主键id对应的对象
  */
 
 const schemaDeNormalize = (entity: EntitySchema, id: string, unFlatten: any, getEntity: any, cache: EntitiesType) => {
   // 拿到主键id对应的对象
   const obj = getEntity(entity, id);
   const schemaKey = entity.getName();
-  console.log('----obj-data', id);
-
-  console.log('-----obj', obj);
 
   // 当前data的数据
   const processedEntity = { ...obj };
@@ -89,18 +80,24 @@ const schemaDeNormalize = (entity: EntitySchema, id: string, unFlatten: any, get
 
 /**
  * 传入的不是schema实例
+ * @param entity 
+ * @param data 
+ * @param unFlatten 
+ * @returns  Object
  */
 
 const noSchemaDeNormalize = (entity: any, data: any, unFlatten: any) => {
   const object = { ...data };
-  console.log('----object1-data', data);
-
-  console.log('------object1', object);
 
   const arr: any[] = [];
   const schemaIsArray = entity instanceof Array;
 
   Object.keys(entity).forEach(key => {
+    /**
+     * 如果是对象
+     * 将获得的value赋值给原key的属性
+     * 如果是数组，则直接push
+     */
     let objectValue = unFlatten(entity[key], object[key]);
     if (object[key]) {
       object[key] = objectValue;
